@@ -65,26 +65,25 @@ concentracion nivel = con { defensa = meditarN nivel}
 
 esbirro = UnElemento "Maldad" nada (causarDanio 1)
 
-esbirrosMalvados :: Float -> [Elemento]
+esbirrosMalvados :: Int -> [Elemento]
 esbirrosMalvados 0 = []
 esbirrosMalvados cantidad = esbirro : esbirrosMalvados (cantidad - 1) 
                          
 katana = UnElemento "Magia" (causarDanio 1000) nada
 jack = UnPersonaje "Jack" 300 [concentracion 3,katana] 200
 
-portalafuturo = UnElemento "Magia"  enviarAlFuturo 
+portalafuturo = UnElemento "Magia"  enviarAlFuturo nada
 
 enviarAlFuturo :: Personaje->Personaje
 enviarAlFuturo personaje = personaje {anioPresente = anioPresente personaje + 2800}
-
---enviarAlFuturo 
  
 person = UnPersonaje "Aku" 0 [concentracion 4] 0
+ 
+aku :: Int->Float->Personaje
+aku anio salud = person {elementos = elementos person ++ esbirrosMalvados (100 * anio) ++ [portalafuturo] }
 
---aku :: Float->Float->Personaje
---aku anio salud = person {elementos = elementos person ++ esbirrosMalvados (100*anio) ++ enviarAlFuturo }
+nuevoAku :: Int->Float->Personaje->Personaje
+nuevoAku anio salud aku = aku {anioPresente = anio, salud = salud }   
 
---nuevoAku :: Float->Float->Personaje->Personaje
---nuevoAku anio salud aku =  
 
 
