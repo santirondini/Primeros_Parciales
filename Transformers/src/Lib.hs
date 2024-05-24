@@ -28,3 +28,7 @@ maximoSegun :: (Int -> Int -> Int) -> Int -> Int -> Int
 maximoSegun funcion a b 
                         | funcion a b > funcion b a = a
                         | otherwise = b
+
+--2) 
+
+
