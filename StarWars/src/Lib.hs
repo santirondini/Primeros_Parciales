@@ -93,14 +93,34 @@ siCumpleLaEstrategiaAtacar estrategia atacante atacada
                                                         | estrategia atacada = batalla atacante atacada 
                                                         | otherwise = atacada 
 
-comoQuedaLaFlota :: Estrategia -> Atacante -> FlotaEnemiga -> FlotaEnemiga
-comoQuedaLaFlota estrategia atacante flota = map (siCumpleLaEstrategiaAtacar estrategia atacante) flota
+mision :: Estrategia -> Atacante -> FlotaEnemiga -> FlotaEnemiga
+mision estrategia atacante flota = map (siCumpleLaEstrategiaAtacar estrategia atacante) flota
+
+-- 
+
+laEstrategiaQueMinimizaEntre :: Estrategia -> Estrategia -> FlotaEnemiga -> Atacante -> Estrategia
+laEstrategiaQueMinimizaEntre e1 e2 flota nave 
+                                   | durabilidadTotal (mision e1 nave flota) > durabilidadTotal (mision e2 nave flota) = e2 
+                                   | otherwise = e1 
+
+queEstrategiaMinimiza :: Atacante -> FlotaEnemiga -> Estrategia -> Estrategia -> FlotaEnemiga
+queEstrategiaMinimiza nave flota estrategia1 estrategia2 = mision (laEstrategiaQueMinimizaEntre estrategia1 estrategia2 flota nave) nave flota 
+
+-- 
+
+{-
+Construir una flota infinita de naves. ¿Es posible determinar su durabilidad total? 
+¿Qué se obtiene como respuesta cuando se lleva adelante una misión sobre ella? Justificar conceptualmente.
+-}
+
+flotainfinita = cycle [darth, falcon, elsony]
+
+{-
+No. No es posible determinar la durabildad total ya que es una función que se ejecuta en todos los elementos de la lista. 
+La lista al ser infinita, Haskell nunca podra "mapear" esa función a todos los elementos.
 
 
-
-
-
-
+-}
 
 
 
