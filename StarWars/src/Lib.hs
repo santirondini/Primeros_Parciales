@@ -1,3 +1,4 @@
+
 data Nave = UnaNave {
     nombre :: String,
     durabilidad :: Int,
@@ -118,8 +119,6 @@ flotainfinita = cycle [darth, falcon, elsony]
 {-
 No. No es posible determinar la durabildad total ya que es una función que se ejecuta en todos los elementos de la lista. 
 La lista al ser infinita, Haskell nunca podra "mapear" esa función a todos los elementos.
-
-
 -}
 
 
